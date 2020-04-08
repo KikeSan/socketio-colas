@@ -11,3 +11,7 @@ npm install
 ## Clases
 
 - Ticket Control
+
+### Developer
+
+Kikesan
