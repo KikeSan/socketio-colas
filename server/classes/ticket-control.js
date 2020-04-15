@@ -26,6 +26,10 @@ class TicketControl {
 
   siguienteTicket() {
     this.ultimo += 1;
+
+    let ticket = new Ticket(this.ultimo, null);
+    this.tickets.push(ticket);
+
     this.grabarArchivo();
 
     return `Ticket ${this.ultimo}`;
@@ -46,7 +50,7 @@ class TicketControl {
     let jsonData = {
       ultimo: this.ultimo,
       hoy: this.hoy,
-      tickets: this.tickets
+      tickets: this.tickets,
     };
 
     let jsonDataString = JSON.stringify(jsonData);
