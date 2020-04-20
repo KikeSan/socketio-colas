@@ -4,7 +4,7 @@ const { TicketControl } = require('../classes/ticket-control');
 
 const ticketControl = new TicketControl();
 
-io.on('connection', client => {
+io.on('connection', (client) => {
   console.log('Usuario conectado');
 
   client.on('disconnect', () => {
@@ -19,6 +19,19 @@ io.on('connection', client => {
   });
 
   client.emit('estadoActual', {
-    actual: ticketControl.getUltimoTicket()
+    actual: ticketControl.getUltimoTicket(),
+  });
+
+  client.on('atenderTicket', (data, callback) => {
+    if (!data.escritorio) {
+      return callback({
+        err: true,
+        mensaje: 'El escritorio es requerido',
+      });
+    }
+
+    let atenderTicket = ticketControl.atenderTicket(data.escritorio);
+
+    callback(atenderTicket);
   });
 });
